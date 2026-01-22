@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import AdminDashboard from "@/components/adminDashboard";
 
 // Use environment variable for passkey (safer than hardcoding)
-const ADMIN_PASSKEY = process.env.NEXT_PUBLIC_ADMIN_PASSKEY || "defaultpass";
+const ADMIN_PASSKEY = process.env.NEXT_PUBLIC_ADMIN_PASS || "defaultpass";
 
 export default function AdminPage() {
   const [password, setPassword] = useState("");
