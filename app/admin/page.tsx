@@ -63,7 +63,7 @@ export default function AdminPage() {
               exit={{ opacity: 0, y: -20 }}
               className="absolute top-0 left-1/2 -translate-x-1/2 mt-2 bg-red-600 text-white px-4 py-2 rounded-md shadow-md shadow-red-800 text-center"
             >
-              Wrong passkey! Github done ?
+              Wrong passkey!
             </motion.div>
           )}
         </AnimatePresence>
