@@ -1,26 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: 263 70% 50%;
+  --foreground: 0 0% 98%;
+  --background: 240 10% 3.9%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  height: 100%;
+  scrollbar-width: none; /* Firefox */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Global black + violet background */
+.bg-main {
+  background: 
+    radial-gradient(circle at top left, rgba(139, 92, 246, 0.35), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(88, 28, 135, 0.35), transparent 45%),
+    #000000;
+  background-repeat: no-repeat;
+  background-size: cover; /* ensures it fills the area */
+  background-attachment: fixed; /* optional: makes it stay while scrolling */
+}
+
+@layer base {
+  body {
+    font-family: var(--font-inter);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-space-grotesk);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.gradient-text {
+  background: linear-gradient(
+    to right,
+    hsl(var(--primary)),
+    #a855f7, /* purple-500 */
+    #ec4899  /* pink-500 */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
