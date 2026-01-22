@@ -15,6 +15,26 @@ export default function Hero() {
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [profilePic, setProfilePic] = useState<string | null>(null); // Home profile pic URL
+
+  useEffect(() => {
+    const fetchProfilePic = async () => {
+      try {
+        const res = await fetch("/api/homeProfilePic");
+        if (!res.ok) {
+          const data = await res.json();
+          console.error("Failed to fetch home profile pic:", data.error);
+          return;
+        }
+        const data = await res.json();
+        if (data.imageUrl) setProfilePic(data.imageUrl);
+      } catch (err) {
+        console.error("Error fetching home profile pic:", err);
+      }
+    };
+
+    fetchProfilePic();
+  }, []);
 
   // Typing effect logic
   useEffect(() => {
@@ -99,12 +119,18 @@ export default function Hero() {
         <div className="relative flex justify-center items-center w-full h-full">
           {/* Profile Image */}
           <div className="relative z-30 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-lg">
-            <Image
-              src="/profile.png"
-              alt="Tausur Rahaman"
-              fill
-              className="object-cover"
-            />
+            {profilePic ? (
+              <Image
+                src={profilePic}
+                alt="Home Profile Pic"
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-white/10 text-neutral-400">
+                Loading...
+              </div>
+            )}
           </div>
 
           {/* Floating Shapes Around Profile */}

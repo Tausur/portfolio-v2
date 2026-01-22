@@ -1,8 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+interface Profile {
+  name: string;
+  imageUrl: string;
+}
 
 export default function AboutPage() {
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    fetch("/api/profile")
+      .then((res) => res.json())
+      .then((data) => setProfile(data))
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <section className="px-6 py-20">
       <div
@@ -65,17 +80,19 @@ export default function AboutPage() {
 
           {/* Image container */}
           <div
-            className="
-      relative overflow-hidden
-      rounded-3xl border border-violet-900/40
-      max-h-[420px] w-full max-w-sm
-    "
+            className="relative overflow-hidden rounded-3xl border border-violet-900/40 max-h-[420px] w-full max-w-sm"
           >
-            <img
-              src="/profile.png"
-              alt="Profile"
-              className="w-full h-full object-cover grayscale-[20%]"
-            />
+            {profile ? (
+              <img
+                src={profile.imageUrl}
+                alt={profile.name}
+                className="w-full h-full object-cover grayscale-[20%]"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-neutral-500">
+                Loading...
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

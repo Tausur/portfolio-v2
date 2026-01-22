@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AdminDashboard from "@/components/adminDashboard";
 
-const ADMIN_PASSKEY = "asdf"; // hardcoded password for now
+// Use environment variable for passkey (safer than hardcoding)
+const ADMIN_PASSKEY = process.env.NEXT_PUBLIC_ADMIN_PASSKEY || "defaultpass";
 
 export default function AdminPage() {
   const [password, setPassword] = useState("");
@@ -13,8 +14,10 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (password === ADMIN_PASSKEY) {
       setIsLoggedIn(true);
+      setPassword(""); // clear password input
     } else {
       setShowError(true);
       setPassword("");
@@ -22,16 +25,12 @@ export default function AdminPage() {
     }
   };
 
-  if (isLoggedIn) {
-    // Dashboard view
-    return (
-      <AdminDashboard />
-    );
-  }
+  // If logged in, show admin dashboard
+  if (isLoggedIn) return <AdminDashboard />;
 
-  // Login form view
+  // Login form
   return (
-    <section className="min-h-screen flex items-center justify-center p-6">
+    <section className="min-h-screen flex items-center justify-center p-6 bg-black/50">
       <div className="relative w-full max-w-sm bg-black/70 backdrop-blur-xl border border-violet-500/50 rounded-2xl p-8 shadow-lg shadow-violet-700/30">
         <h2 className="text-5xl font-semibold text-white mb-6 text-center">
           Admin Login

@@ -1,33 +1,21 @@
 import ProjectCard from "@/components/ProjectCard";
 
-const projects = [
-  {
-    id: "ai-code-reviewer",
-    title: "AI Code Reviewer",
-    description:
-      "An AI-powered system that reviews source code and suggests optimizations using LLMs.",
-    tech: ["Next.js", "TypeScript", "OpenAI"],
-    image: "/projects/ml-dashboard.png",
-  },
-  {
-    id: "ml-dashboard",
-    title: "ML Experiment Dashboard",
-    description:
-      "A dashboard to track machine learning experiments and visualize metrics.",
-    tech: ["React", "D3.js", "Python"],
-    image: "/projects/ml-dashboard.png",
-  },
-  {
-    id: "physics-engine",
-    title: "Physics Simulation Engine",
-    description:
-      "Browser-based physics simulation for oscillations and particle systems.",
-    tech: ["Three.js", "WebGL", "Framer Motion"],
-    image: "/projects/physics-engine.png",
-  },
-];
+async function getProjects() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`, {
+    next: { revalidate: 10 }, // optional ISR: revalidate every 10s
+  });
 
-export default function ProjectsPage() {
+  if (!res.ok) {
+    console.error("Failed to fetch projects");
+    return [];
+  }
+
+  return res.json();
+}
+
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
   return (
     <section className="min-h-screen px-6 py-20">
       <div className="max-w-7xl mx-auto mb-14">
@@ -37,19 +25,14 @@ export default function ProjectsPage() {
         </p>
       </div>
 
-      <div
-        className="
-          max-w-7xl mx-auto
-          grid gap-8
-          grid-cols-1
-          sm:grid-cols-2
-          lg:grid-cols-3
-        "
-      >
-        {projects.map((project, index) => (
+      <div className="max-w-7xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project: any, index: number) => (
           <ProjectCard
-            key={project.id}
-            project={project}
+            key={project._id}
+            project={{
+              ...project,
+              tech: project.techStack,
+            }}
             index={index}
           />
         ))}
