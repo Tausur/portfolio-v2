@@ -8,8 +8,18 @@ export const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const [isOverLight, setIsOverLight] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // new state
 
   useEffect(() => {
+    // detect mobile on load
+    const mobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+    setIsMobile(mobile);
+
+    if (mobile) return; // skip all cursor logic on mobile
+
     const moveCursor = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
@@ -18,12 +28,10 @@ export const CustomCursor = () => {
     const handleMouseUp = () => setIsPressed(false);
 
     const addHoverEvents = () => {
-      // all buttons, links, and elements with class .hover-cursor
       const hoverables = document.querySelectorAll("a, button, .hover-cursor");
       hoverables.forEach((el) => {
         el.addEventListener("mouseenter", () => {
           setIsHovering(true);
-          // if element has the manual "cursor-light" class, set dark cursor
           setIsOverLight(el.classList.contains("cursor-light"));
         });
         el.addEventListener("mouseleave", () => {
@@ -45,7 +53,8 @@ export const CustomCursor = () => {
     };
   }, []);
 
-  // zoom effect for hover or press
+  if (isMobile) return null; // hide completely on mobile
+
   const zoomed = isHovering || isPressed;
 
   return (
