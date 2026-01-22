@@ -34,7 +34,7 @@ export default function ContactPage() {
               className="relative flex items-center gap-4 p-5 bg-black/40 border border-violet-500/50 backdrop-blur-md rounded-xl shadow-lg shadow-violet-700/20 cursor-pointer overflow-hidden"
             >
               <Mail className="text-violet-400 w-6 h-6 z-10" />
-              <span className="text-white font-medium z-10">tausur@example.com</span>
+              <span className="text-white font-medium z-10">tausurrahaman@gmail.com</span>
             </motion.div>
 
             {/* Location */}
