@@ -15,17 +15,17 @@ export default function Footer({ className = "" }: FooterProps) {
   const socialLinks = [
     {
       name: "GitHub",
-      url: "https://github.com/your-username",
+      url: "https://github.com/Tausur",
       icon: <Github className="w-5 h-5" />,
     },
     {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/your-username",
+      url: "https://linkedin.com/in/tausur-rahaman",
       icon: <Linkedin className="w-5 h-5" />,
     },
     {
       name: "Twitter",
-      url: "https://twitter.com/your-username",
+      url: "https://twitter.com/tausur47",
       icon: <Twitter className="w-5 h-5" />,
     },
   ];
