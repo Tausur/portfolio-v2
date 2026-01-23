@@ -8,7 +8,7 @@ export type Project = {
   title: string;
   description: string;
   techStack: string[];
-  image?: string; // optional
+  image?: string;
   url?: string;
   github?: string;
 };
@@ -46,7 +46,15 @@ export default function ProjectCard({
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
 
           {/* Buttons */}
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+          <div
+            className="
+              absolute bottom-4 left-4 right-4 flex items-center justify-between 
+              opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0
+              transition duration-300
+              md:opacity-0 md:translate-y-3
+              sm:opacity-100 sm:translate-y-0
+            "
+          >
             {project.url && (
               <a
                 href={project.url}
