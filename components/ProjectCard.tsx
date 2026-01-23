@@ -45,14 +45,13 @@ export default function ProjectCard({
           {/* Hover overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
 
-          {/* Buttons */}
+          {/* ---------- DESKTOP HOVER BUTTONS ---------- */}
           <div
             className="
+              hidden md:flex
               absolute bottom-4 left-4 right-4 flex items-center justify-between 
               opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0
               transition duration-300
-              md:opacity-0 md:translate-y-3
-              sm:opacity-100 sm:translate-y-0
             "
           >
             {project.url && (
@@ -72,6 +71,32 @@ export default function ProjectCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-neutral-900/80 hover:bg-neutral-800 text-white border border-neutral-700"
+                aria-label="GitHub Repository"
+              >
+                <Github size={18} />
+              </a>
+            )}
+          </div>
+
+          {/* ---------- MOBILE BUTTONS ---------- */}
+          <div className="flex md:hidden absolute bottom-4 left-4 right-4 justify-between gap-2">
+            {project.url && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-white bg-violet-600/90 hover:bg-violet-500 px-4 py-2 rounded-full shadow-md shadow-violet-900/40"
+              >
+                Visit Site
+                <ArrowRight size={16} />
+              </a>
+            )}
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center p-2 rounded-full bg-neutral-900/80 hover:bg-neutral-800 text-white border border-neutral-700"
                 aria-label="GitHub Repository"
               >
                 <Github size={18} />
